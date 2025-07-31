@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using CoreUtils;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -14,10 +15,12 @@ public class GameManager : MonoBehaviour
     public int TimeRemainingSeconds;
     public float TimeRemainingNormalized;
     
-    private float _dayEndTime;
-    private float _dayDuration;
-    private float _dayStartTime;
+    public float _dayEndTime;
+    public float _dayDuration;
+    public float _dayStartTime;
     private bool _dayEnded;
+    public UnityEvent OnBeginDay;
+    public UnityEvent OnEndDay;
 
     public static GameManager Instance;
 
@@ -26,12 +29,13 @@ public class GameManager : MonoBehaviour
         if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
+        Instance = this;
     }
 
     private void Start()
     {
-        Instance = this;
         _dayEndScreen.SetActive(false);
         DontDestroyOnLoad(gameObject);
         _dayDuration = _defaultDayDurationSeconds;
@@ -44,24 +48,13 @@ public class GameManager : MonoBehaviour
         _dayEndScreen.SetActive(false);
         _dayEndTime = Time.time + _dayDuration;
         _dayStartTime = Time.time;
-    }
-
-    private void Update()
-    {
-        if (!_dayEnded && Time.time > _dayEndTime)
-        {
-            _dayEnded = true;
-            StartCoroutine(nameof(EndDay));
-            return;
-        }
-        
-        TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, Time.time);
-        TimeRemainingSeconds = (int)(_dayEndTime - Time.time);
+        OnBeginDay?.Invoke();
     }
 
     private IEnumerator EndDay()
     {
         //TODO disable player input
+        OnEndDay?.Invoke();
         _dayEndScreen.SetActive(true);
         
         yield return new WaitForSeconds(_endScreenDuration);
@@ -75,5 +68,18 @@ public class GameManager : MonoBehaviour
         
         _dayEnded = false;
         BeginDay();
+    }
+
+    private void Update()
+    {
+        if (!_dayEnded && Time.time > _dayEndTime)
+        {
+            _dayEnded = true;
+            StartCoroutine(nameof(EndDay));
+            return;
+        }
+        
+        TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, Time.time);
+        TimeRemainingSeconds = (int)(_dayEndTime - Time.time);
     }
 }
