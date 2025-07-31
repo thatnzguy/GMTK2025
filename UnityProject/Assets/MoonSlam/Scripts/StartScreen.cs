@@ -1,16 +1,21 @@
+using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartScreen : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Button _startButton;
+    [SerializeField] private SceneAsset _gameScene;
+    
+    private void Awake()
     {
-        
+        _startButton.onClick.AddListener(OnStartClick);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnStartClick()
     {
-        
+        SceneManager.LoadScene(_gameScene.name);
     }
 }
