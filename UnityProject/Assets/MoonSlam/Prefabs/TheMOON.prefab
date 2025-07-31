@@ -198,3 +198,36 @@ MonoBehaviour:
   _endPoint: {fileID: 3571224447099579687}
   _startPoint: {fileID: 996604214656670159}
   _moon: {fileID: 800956629684452047}
+  _moveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.1590229
+      outSlope: 1.1590229
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7954925
+      value: 0.92199403
+      inSlope: 0.7702281
+      outSlope: 0.7702281
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.38143325
+      outSlope: 0.38143325
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
