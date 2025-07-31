@@ -8,8 +8,7 @@ public class TimeDisplayUI : MonoBehaviour
 
     private void Update()
     {
-        DateTime currentClockTime = GameManager.Instance.CurrentClockTime;
-        string text = currentClockTime.ToShortTimeString();
+        string text = GameManager.Instance.TimeRemainingSeconds.ToString();
         _text.text = text;
     }
 }
