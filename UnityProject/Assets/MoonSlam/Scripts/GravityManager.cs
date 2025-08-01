@@ -30,12 +30,12 @@ public class GravityManager : MonoBehaviour
     private void Update()
     {
         float gravityScale = _gravityCurve.Evaluate(GameManager.Instance.TimeRemainingNormalized);
-        float gravityLerped = Mathf.InverseLerp(_gravityStart, _gravityEnd, gravityScale);
+        float gravityLerped = Mathf.Lerp(_gravityStart, _gravityEnd, gravityScale);
         WorldGravity = Vector3.up * gravityLerped;
         Physics.gravity = WorldGravity;
         
         float gravityPlayerScale = _gravityPlayerCurve.Evaluate(GameManager.Instance.TimeRemainingNormalized);
-        float gravityPlayerLerped = Mathf.InverseLerp(_gravityPlayerStart, _gravityPlayerEnd, gravityPlayerScale);
+        float gravityPlayerLerped = Mathf.Lerp(_gravityPlayerStart, _gravityPlayerEnd, gravityPlayerScale);
         PlayerGravity = Vector3.up * gravityPlayerLerped;
     }
 }

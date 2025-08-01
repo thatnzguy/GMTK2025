@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8360990173288491698
 Transform:
@@ -42,7 +42,7 @@ Terrain:
   m_GameObject: {fileID: 8785338299007671870}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 8fe47453601c7624f90abe3fc3eb867a, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: dfdfcc21564776d4ab924ed54f9a7505, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -60,16 +60,16 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 2303ff5f0f8803345b14b75d29a7d0f5, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 3117fd8e56a2c9f4abad5dcfd03afda3, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
   m_ReceiveGI: 1
-  m_ScaleInLightmap: 0.0256
+  m_ScaleInLightmap: 1
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
   m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 1
+  m_AllowAutoConnect: 0
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
@@ -91,5 +91,5 @@ TerrainCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: 8fe47453601c7624f90abe3fc3eb867a, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: dfdfcc21564776d4ab924ed54f9a7505, type: 2}
   m_EnableTreeColliders: 1
