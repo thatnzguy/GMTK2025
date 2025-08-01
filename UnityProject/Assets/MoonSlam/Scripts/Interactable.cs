@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Interactable : MonoBehaviour, IInteractable {
     
     [SerializeField] private Outline _outline;
+
+    [SerializeField] private UnityEvent onInteract;
 
     private void Start()
     {
@@ -26,6 +29,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable {
 
     public virtual bool Interact(Interactor interactor)
     {
+        onInteract?.Invoke();
         return false;
     }
 }
