@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b02b22863402458899ec83e2eed27a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxInteractDistance: 10
+  _maxInteractDistance: 2
   _holdPosition: {fileID: 1027158402435072811}
 --- !u!1001 &4004952094350586926
 PrefabInstance:
