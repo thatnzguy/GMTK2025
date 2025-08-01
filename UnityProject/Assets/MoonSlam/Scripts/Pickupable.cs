@@ -1,33 +1,22 @@
 using System;
 using UnityEngine;
 
-public class PickupItem : MonoBehaviour, IInteractable
+public class Pickupable : Interactable
 {
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private Outline _outline;
-
-    private void Start()
-    {
-        FocusOff();
-    }
-
-    public void FocusOn()
-    {
-        _outline.enabled = true;
-    }
-
-    public void FocusOff()
-    {
-        _outline.enabled = false;
-    }
-
-    public bool Interact()
+    [SerializeField] protected Rigidbody _rigidbody;
+    
+    public override bool Interact(Interactor interactor)
     {
         return true;
     }
 
+    protected bool _isHeld;
+    protected Interactor _holdingInteractor;
+
     public void Pickup(Interactor interactor)
     {
+        _holdingInteractor = interactor;
+        _isHeld = true;
         _rigidbody.isKinematic = true;
 
         Collider[] colliders = GetComponentsInChildren<Collider>();
@@ -39,6 +28,7 @@ public class PickupItem : MonoBehaviour, IInteractable
 
     public void Drop()
     {
+        _isHeld = false;
         Collider[] colliders = GetComponentsInChildren<Collider>();
         foreach (Collider collider in colliders)
         {

@@ -5,11 +5,13 @@ using UnityEngine;
 
 public interface IInteractable
 {
+    public bool CanFocus(Interactor interactor);
+
     public void FocusOn();
     public void FocusOff();
     
     //Return true if holdable
-    public bool Interact();
+    public bool Interact(Interactor interactor);
 }
 
 public class Interactor : MonoBehaviour
@@ -19,11 +21,12 @@ public class Interactor : MonoBehaviour
 
     private RaycastHit[] _raycastHits = new RaycastHit[100];
 
-    private PickupItem _heldItem;
+    public Pickupable HeldItem { get; private set; }
     private IInteractable _focusedInteractable;
     
     private void Update()
     {
+        //Focus
         Ray ray = new Ray(transform.position, transform.forward);
         int numHits = Physics.RaycastNonAlloc(ray, _raycastHits, _maxInteractDistance);
         Collider hitCollider = null;
@@ -34,17 +37,20 @@ public class Interactor : MonoBehaviour
             {
                 RaycastHit raycastHit = _raycastHits[i];
                 IInteractable interactable = raycastHit.collider.GetComponentInParent<IInteractable>();
-                if (interactable != null)
+                if (interactable != null && interactable.CanFocus(this))
                 {
                     focused = true;
                     hitCollider = raycastHit.collider;
+
                     if (_focusedInteractable != null)
                     {
                         _focusedInteractable.FocusOff();
                         _focusedInteractable = null;
                     }
+
                     _focusedInteractable = interactable;
                     _focusedInteractable.FocusOn();
+                    break;
                 }
             }
         }
@@ -59,21 +65,21 @@ public class Interactor : MonoBehaviour
         {
             if (_focusedInteractable != null)
             {
-                if (_focusedInteractable.Interact())
+                if (_focusedInteractable.Interact(this))
                 {
-                    PickupItem pickupItem = hitCollider.GetComponentInParent<PickupItem>();
-                    if (pickupItem != null)
+                    Pickupable pickupable = hitCollider.GetComponentInParent<Pickupable>();
+                    if (pickupable != null)
                     {
-                        if (_heldItem != null)
+                        if (HeldItem != null)
                         {
                             DropHeldItem();
                         }
 
-                        Pickup(pickupItem);
+                        Pickup(pickupable);
                     }
                 }
             } 
-            else if (_heldItem)
+            else if (HeldItem)
             {
                 DropHeldItem();
             }
@@ -82,24 +88,29 @@ public class Interactor : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_heldItem != null)
+        if (HeldItem != null)
         {
-            _heldItem.transform.SetLocalPositionAndRotation(_holdPosition.position, _holdPosition.rotation);
+            HeldItem.transform.SetLocalPositionAndRotation(_holdPosition.position, _holdPosition.rotation);
         }
     }
 
-    private void Pickup(PickupItem item)
+    private void Pickup(Pickupable item)
     {
-        _heldItem = item;
-        _heldItem.Pickup(this);
+        HeldItem = item;
+        HeldItem.Pickup(this);
         Debug.Log("Pickup");
+    }
+
+    public void ReleaseHeldItem()
+    {
+        HeldItem = null;
     }
 
     private void DropHeldItem()
     {
         //TODO throw
-        _heldItem.Drop();
-        _heldItem = null;
+        HeldItem.Drop();
+        HeldItem = null;
         Debug.Log("DropHeldItem");
     }
 }

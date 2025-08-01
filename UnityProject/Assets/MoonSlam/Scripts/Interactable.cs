@@ -1,0 +1,31 @@
+using UnityEngine;
+
+public abstract class Interactable : MonoBehaviour, IInteractable {
+    
+    [SerializeField] private Outline _outline;
+
+    private void Start()
+    {
+        FocusOff();
+    }
+
+    public bool CanFocus(Interactor interactor)
+    {
+        return true;
+    }
+
+    public virtual void FocusOn()
+    {
+        _outline.enabled = true;
+    }
+
+    public void FocusOff()
+    {
+        _outline.enabled = false;
+    }
+
+    public virtual bool Interact(Interactor interactor)
+    {
+        return false;
+    }
+}
