@@ -50,7 +50,7 @@ MonoBehaviour:
   _defaultDayDurationSeconds: 120
   _dayEndScreen: {fileID: 5334941703176754364}
   _endScreenDuration: 5
-  _endScreen: {fileID: 102900000, guid: 2fe0c8eeab75e5341af7d0ea2de01b1f, type: 3}
+  _endScreen: EndScreen
   TimeRemainingSeconds: 0
   TimeRemainingNormalized: 0
   _dayEndTime: 0

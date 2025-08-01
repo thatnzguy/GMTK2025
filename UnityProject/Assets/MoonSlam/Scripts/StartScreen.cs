@@ -1,5 +1,4 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,7 +6,7 @@ using UnityEngine.UI;
 public class StartScreen : MonoBehaviour
 {
     [SerializeField] private Button _startButton;
-    [SerializeField] private SceneAsset _gameScene;
+    [SerializeField] private String _gameScene;
     
     private void Awake()
     {
@@ -16,6 +15,6 @@ public class StartScreen : MonoBehaviour
 
     private void OnStartClick()
     {
-        SceneManager.LoadScene(_gameScene.name);
+        SceneManager.LoadScene(_gameScene);
     }
 }

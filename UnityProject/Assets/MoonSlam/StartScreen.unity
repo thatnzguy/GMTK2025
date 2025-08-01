@@ -1013,7 +1013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startButton: {fileID: 778064230}
-  _gameScene: {fileID: 102900000, guid: 7061df5525774f94598c91aaa45e42df, type: 3}
+  _gameScene: GameScene
 --- !u!4 &2072786924
 Transform:
   m_ObjectHideFlags: 0

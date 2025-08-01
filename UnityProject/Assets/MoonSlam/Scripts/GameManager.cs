@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _defaultDayDurationSeconds;
     [SerializeField] private GameObject _dayEndScreen;
     [SerializeField] private float _endScreenDuration = 5;
-    [SerializeField] private SceneAsset _endScreen;
+    [SerializeField] private string _endScreen;
     
     public int TimeRemainingSeconds;
     public float TimeRemainingNormalized;
@@ -85,6 +85,6 @@ public class GameManager : MonoBehaviour
 
     public void EngineActivated()
     {
-        SceneManager.LoadScene(_endScreen.name);
+        SceneManager.LoadScene(_endScreen);
     }
 }
