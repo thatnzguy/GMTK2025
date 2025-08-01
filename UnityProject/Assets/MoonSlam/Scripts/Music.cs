@@ -10,10 +10,16 @@ public class Music : MonoBehaviour
     private float _startEndClipTime;
     private bool _endClipPlaying;
 
-    private void Start()
+    private void OnEnable()
     {
         GameManager.Instance.OnBeginDay.AddListener(BeginDay);
         GameManager.Instance.OnEndDay.AddListener(EndDay);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnBeginDay.RemoveListener(BeginDay);
+        GameManager.Instance.OnEndDay.RemoveListener(EndDay);
     }
 
     private void BeginDay()

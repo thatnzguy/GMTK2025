@@ -51,6 +51,7 @@ MonoBehaviour:
   _dayEndScreen: {fileID: 5334941703176754364}
   _endScreenDuration: 5
   _endScreen: EndScreen
+  _gameScene: GameScene
   TimeRemainingSeconds: 0
   TimeRemainingNormalized: 0
   _dayEndTime: 0
@@ -172,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 6924387437508570204}
-  _loop: {fileID: 8300000, guid: 3331692fb86a4924fbb22be9349b9f18, type: 3}
+  _loop: {fileID: 8300000, guid: 5b2c143739bea40cc83fe466ecef189e, type: 3}
   _end: {fileID: 8300000, guid: 5d495adfc101dc640b93690019be584a, type: 3}
 --- !u!82 &6924387437508570204
 AudioSource:

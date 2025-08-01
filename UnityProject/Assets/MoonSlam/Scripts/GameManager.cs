@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _dayEndScreen;
     [SerializeField] private float _endScreenDuration = 5;
     [SerializeField] private string _endScreen;
+    [SerializeField] private string _gameScene;
     
     public int TimeRemainingSeconds;
     public float TimeRemainingNormalized;
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent OnEndDay;
 
     public static GameManager Instance;
+
+    public int DayNumber { get; private set; } = 1;
 
     private void Awake()
     {
@@ -59,12 +63,13 @@ public class GameManager : MonoBehaviour
         
         yield return new WaitForSeconds(_endScreenDuration);
         
-        _dayEndScreen.SetActive(false);
+        DayNumber++;
 
-        string sceneName = SceneManager.GetActiveScene().name;
-        
-        AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(sceneName);
+        //Reload game scene
+        AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(_gameScene);
         yield return new WaitUntil(() => loadSceneAsync.isDone);
+        
+        _dayEndScreen.SetActive(false);
         
         _dayEnded = false;
         BeginDay();
