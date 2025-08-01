@@ -12,7 +12,7 @@ public class EngineButton : Interactable
         _attachPoints = transform.parent.GetComponentsInChildren<AttachPoint>();
         foreach (AttachPoint attachPoint in _attachPoints)
         {
-            attachPoint.OnAttached.AddListener(AttachPointOnAttached);
+            attachPoint.onInteract.AddListener(AttachPointOnAttached);
         }
     }
 

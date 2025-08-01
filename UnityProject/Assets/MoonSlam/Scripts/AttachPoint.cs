@@ -10,7 +10,6 @@ public class AttachPoint : Interactable
 
     private Attachable _attached;
     public bool IsAttached => _attached != null;
-    public UnityEvent OnAttached;
 
     private void Update()
     {
@@ -67,7 +66,6 @@ public class AttachPoint : Interactable
         _attached = attachable;
         _outline.enabled = false;
         FocusOff();
-        OnAttached?.Invoke();
     }
 
     private void OnDrawGizmos()

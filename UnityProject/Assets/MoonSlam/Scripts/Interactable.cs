@@ -5,7 +5,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable {
     
     [SerializeField] protected Outline _outline;
 
-    [SerializeField] private UnityEvent onInteract;
+    [SerializeField] public UnityEvent onInteract;
 
     private void Awake()
     {

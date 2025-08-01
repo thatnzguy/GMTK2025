@@ -65,6 +65,7 @@ public class Interactor : MonoBehaviour
         {
             if (_focusedInteractable != null)
             {
+                //TODO could be refactored to be like the AttachPoint, and do a thing for you
                 Pickupable pickupable = hitCollider.GetComponentInParent<Pickupable>();
                 if (pickupable != null)
                 {
