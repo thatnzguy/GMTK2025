@@ -2,9 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AttachPoint : MonoBehaviour, IInteractable
+public class AttachPoint : Interactable
 {
-    [SerializeField] private Outline _outline;
     [SerializeField] private Color _focusColor;
     [SerializeField] private float _attachRadius = 0.5f;
     private Collider[] _overlapColliders = new Collider[10];
@@ -33,23 +32,23 @@ public class AttachPoint : MonoBehaviour, IInteractable
         }
     }
 
-    public bool CanFocus(Interactor interactor)
+    public override bool CanFocus(Interactor interactor)
     {
         return interactor.HeldItem != null && _attached == null;
     }
 
-    public void FocusOn()
+    public override void FocusOn()
     {
         //TODO IDK why this doesn't change the color
         _outline.OutlineColor = _focusColor;
     }
 
-    public void FocusOff()
+    public override void FocusOff()
     {
         _outline.OutlineColor = Color.white;
     }
 
-    public bool Interact(Interactor interactor)
+    public override void Interact(Interactor interactor)
     {
         if (interactor.HeldItem != null)
         {
@@ -57,9 +56,9 @@ public class AttachPoint : MonoBehaviour, IInteractable
             if (attachable != null)
             {
                 Attach(attachable);
+                base.Interact(interactor);
             }
         }
-        return false;
     }
 
     private void Attach(Attachable attachable)

@@ -17,9 +17,4 @@ public class Attachable : Pickupable
         
         _attached = true;
     }
-
-    public override bool Interact(Interactor interactor)
-    {
-        return !_attached;
-    }
 }

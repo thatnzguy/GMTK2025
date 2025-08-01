@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public abstract class Interactable : MonoBehaviour, IInteractable {
     
-    [SerializeField] private Outline _outline;
+    [SerializeField] protected Outline _outline;
 
     [SerializeField] private UnityEvent onInteract;
 
@@ -12,7 +12,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable {
         FocusOff();
     }
 
-    public bool CanFocus(Interactor interactor)
+    public virtual bool CanFocus(Interactor interactor)
     {
         return true;
     }
@@ -22,14 +22,13 @@ public abstract class Interactable : MonoBehaviour, IInteractable {
         _outline.enabled = true;
     }
 
-    public void FocusOff()
+    public virtual void FocusOff()
     {
         _outline.enabled = false;
     }
 
-    public virtual bool Interact(Interactor interactor)
+    public virtual void Interact(Interactor interactor)
     {
         onInteract?.Invoke();
-        return false;
     }
 }

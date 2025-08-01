@@ -1047,10 +1047,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: System
       objectReference: {fileID: 0}
-    - target: {fileID: 1547255934349636164, guid: 3780c36d445d3704f8598df87aa12bc7, type: 3}
-      propertyPath: _defaultDayDurationSeconds
-      value: 120
-      objectReference: {fileID: 0}
     - target: {fileID: 3395235272295016412, guid: 3780c36d445d3704f8598df87aa12bc7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

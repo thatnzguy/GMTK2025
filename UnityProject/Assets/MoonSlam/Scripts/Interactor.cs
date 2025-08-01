@@ -9,9 +9,9 @@ public interface IInteractable
 
     public void FocusOn();
     public void FocusOff();
-    
-    //Return true if holdable
-    public bool Interact(Interactor interactor);
+
+    // public void CanInteract();
+    public void Interact(Interactor interactor);
 }
 
 public class Interactor : MonoBehaviour
@@ -23,7 +23,7 @@ public class Interactor : MonoBehaviour
 
     public Pickupable HeldItem { get; private set; }
     private IInteractable _focusedInteractable;
-    
+
     private void Update()
     {
         //Focus
@@ -65,19 +65,16 @@ public class Interactor : MonoBehaviour
         {
             if (_focusedInteractable != null)
             {
-                if (_focusedInteractable.Interact(this))
+                Pickupable pickupable = hitCollider.GetComponentInParent<Pickupable>();
+                if (pickupable != null)
                 {
-                    Pickupable pickupable = hitCollider.GetComponentInParent<Pickupable>();
-                    if (pickupable != null)
+                    if (HeldItem != null)
                     {
-                        if (HeldItem != null)
-                        {
-                            DropHeldItem();
-                        }
-
-                        Pickup(pickupable);
+                        DropHeldItem();
                     }
+                    HeldItem = pickupable;
                 }
+                _focusedInteractable.Interact(this);
             } 
             else if (HeldItem)
             {
@@ -94,13 +91,6 @@ public class Interactor : MonoBehaviour
         }
     }
 
-    private void Pickup(Pickupable item)
-    {
-        HeldItem = item;
-        HeldItem.Pickup(this);
-        Debug.Log("Pickup");
-    }
-
     public void ReleaseHeldItem()
     {
         HeldItem = null;
@@ -111,6 +101,5 @@ public class Interactor : MonoBehaviour
         //TODO throw
         HeldItem.Drop();
         HeldItem = null;
-        Debug.Log("DropHeldItem");
     }
 }

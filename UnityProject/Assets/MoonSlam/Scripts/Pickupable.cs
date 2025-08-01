@@ -4,16 +4,11 @@ using UnityEngine;
 public class Pickupable : Interactable
 {
     [SerializeField] protected Rigidbody _rigidbody;
-    
-    public override bool Interact(Interactor interactor)
-    {
-        return true;
-    }
 
     protected bool _isHeld;
     protected Interactor _holdingInteractor;
 
-    public void Pickup(Interactor interactor)
+    public override void Interact(Interactor interactor)
     {
         _holdingInteractor = interactor;
         _isHeld = true;
@@ -24,6 +19,7 @@ public class Pickupable : Interactable
         {
             collider.enabled = false;
         }
+        base.Interact(interactor);
     }
 
     public void Drop()
