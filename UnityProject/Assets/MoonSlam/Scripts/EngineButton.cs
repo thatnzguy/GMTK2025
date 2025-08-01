@@ -19,11 +19,16 @@ public class EngineButton : Interactable
 
     private void AttachPointOnAttached()
     {
+    }
+
+    public override bool Interact(Interactor interactor)
+    {
         int numAttached = _attachPoints.Count(attachPoint => attachPoint.IsAttached);
         if (numAttached == _attachPoints.Length)
         {
             OnEngineActivate?.Invoke();
             GameManager.Instance.EngineActivated();
         }
+        return base.Interact(interactor);
     }
 }

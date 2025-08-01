@@ -7,7 +7,7 @@ public abstract class Interactable : MonoBehaviour, IInteractable {
 
     [SerializeField] private UnityEvent onInteract;
 
-    private void Start()
+    private void Awake()
     {
         FocusOff();
     }

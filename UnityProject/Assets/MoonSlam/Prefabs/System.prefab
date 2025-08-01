@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1adf2e3540a1b1d42af2c7b016171ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultDayDurationSeconds: 60
+  _defaultDayDurationSeconds: 120
   _dayEndScreen: {fileID: 5334941703176754364}
   _endScreenDuration: 5
+  _endScreen: {fileID: 102900000, guid: 2fe0c8eeab75e5341af7d0ea2de01b1f, type: 3}
   TimeRemainingSeconds: 0
   TimeRemainingNormalized: 0
   _dayEndTime: 0

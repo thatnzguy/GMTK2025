@@ -4,8 +4,6 @@ public class Attachable : Pickupable
 {
     private bool _attached;
 
-    private AudioSource jumpSource;
-
     public void Attach(AttachPoint attachPoint)
     {
         if (_isHeld)
@@ -18,7 +16,6 @@ public class Attachable : Pickupable
         transform.rotation = attachPoint.transform.rotation;
         
         _attached = true;
-        jumpSource.Play();
     }
 
     public override bool Interact(Interactor interactor)

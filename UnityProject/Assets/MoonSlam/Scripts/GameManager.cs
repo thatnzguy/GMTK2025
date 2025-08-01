@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
-using System.Threading.Tasks;
-using CoreUtils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -11,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _defaultDayDurationSeconds;
     [SerializeField] private GameObject _dayEndScreen;
     [SerializeField] private float _endScreenDuration = 5;
+    [SerializeField] private SceneAsset _endScreen;
     
     public int TimeRemainingSeconds;
     public float TimeRemainingNormalized;
@@ -85,6 +85,6 @@ public class GameManager : MonoBehaviour
 
     public void EngineActivated()
     {
-        Debug.Log("WIN!");
+        SceneManager.LoadScene(_endScreen.name);
     }
 }
