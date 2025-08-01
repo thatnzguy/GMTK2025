@@ -82,4 +82,9 @@ public class GameManager : MonoBehaviour
         TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, Time.time);
         TimeRemainingSeconds = (int)(_dayEndTime - Time.time);
     }
+
+    public void EngineActivated()
+    {
+        Debug.Log("WIN!");
+    }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AttachPoint : MonoBehaviour, IInteractable
 {
@@ -9,6 +10,8 @@ public class AttachPoint : MonoBehaviour, IInteractable
     private Collider[] _overlapColliders = new Collider[10];
 
     private Attachable _attached;
+    public bool IsAttached => _attached != null;
+    public UnityEvent OnAttached;
 
     private void Update()
     {
@@ -53,13 +56,19 @@ public class AttachPoint : MonoBehaviour, IInteractable
             Attachable attachable = interactor.HeldItem.GetComponent<Attachable>();
             if (attachable != null)
             {
-                attachable.Attach(this);
-                _attached = attachable;
-                _outline.enabled = false;
-                FocusOff();
+                Attach(attachable);
             }
         }
         return false;
+    }
+
+    private void Attach(Attachable attachable)
+    {
+        attachable.Attach(this);
+        _attached = attachable;
+        _outline.enabled = false;
+        FocusOff();
+        OnAttached?.Invoke();
     }
 
     private void OnDrawGizmos()
