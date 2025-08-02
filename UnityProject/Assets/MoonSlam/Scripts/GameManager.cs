@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _endScreenDuration = 5;
     [SerializeField] private string _endScreen;
     [SerializeField] private string _gameScene;
-    
-    public int TimeRemainingSeconds;
+
+    public float TimeElapsedSeconds;
+    public float TimeRemainingSeconds;
     public float TimeRemainingNormalized;
     
     public float _dayEndTime;
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour
 
     public int DayNumber { get; private set; } = 1;
     public int LastSpawnIndex;
+
+    public float _TimeOffset = 0;
+    public float GameTime => Time.time + _TimeOffset;
 
     private void Awake()
     {
@@ -51,8 +55,8 @@ public class GameManager : MonoBehaviour
     {
         //TODO Add day# screen
         _dayEndScreen.SetActive(false);
-        _dayEndTime = Time.time + _dayDuration;
-        _dayStartTime = Time.time;
+        _dayEndTime = GameTime + _dayDuration;
+        _dayStartTime = GameTime;
         OnBeginDay?.Invoke();
     }
 
@@ -78,15 +82,21 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_dayEnded && Time.time > _dayEndTime)
+        if (!_dayEnded && GameTime > _dayEndTime)
         {
             _dayEnded = true;
             StartCoroutine(nameof(EndDay));
             return;
         }
         
-        TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, Time.time);
-        TimeRemainingSeconds = (int)(_dayEndTime - Time.time);
+        TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, GameTime);
+        TimeRemainingSeconds = _dayEndTime - GameTime;
+        TimeElapsedSeconds = GameTime - _dayStartTime;
+
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            _TimeOffset += 10;
+        }
     }
 
     public bool[] ActivatedShips = new bool[3];

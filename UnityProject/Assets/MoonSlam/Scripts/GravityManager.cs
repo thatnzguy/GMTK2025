@@ -24,11 +24,18 @@ public class GravityManager : MonoBehaviour
     [SerializeField] private float _gravityPlayerEnd;
     [SerializeField] private AnimationCurve _gravityPlayerCurve;
 
+    [SerializeField] private AnimationCurve _gravityCurveAbsolute;
+
     public Vector3 WorldGravity { get; private set; }
     public Vector3 PlayerGravity { get; private set; }
 
     private void Update()
     {
+        float gravity = _gravityCurveAbsolute.Evaluate(GameManager.Instance.TimeElapsedSeconds);
+        Physics.gravity = Vector3.up * gravity;
+        PlayerGravity = Vector3.up * gravity;
+        return;
+
         float gravityScale = _gravityCurve.Evaluate(GameManager.Instance.TimeRemainingNormalized);
         float gravityLerped = Mathf.Lerp(_gravityStart, _gravityEnd, gravityScale);
         WorldGravity = Vector3.up * gravityLerped;

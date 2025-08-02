@@ -52,6 +52,7 @@ MonoBehaviour:
   _endScreenDuration: 5
   _endScreen: EndScreen
   _gameScene: GameScene
+  TimeElapsedSeconds: 0
   TimeRemainingSeconds: 0
   TimeRemainingNormalized: 0
   _dayEndTime: 0
@@ -64,6 +65,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   LastSpawnIndex: 0
+  _TimeOffset: 0
   ActivatedShips: 000000
 --- !u!114 &4346710159985541670
 MonoBehaviour:
@@ -78,25 +80,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityStart: -15
-  _gravityEnd: 5
+  _gravityEnd: 0.5
   _gravityCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -104,28 +106,61 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _gravityPlayerStart: -15
-  _gravityPlayerEnd: -1
+  _gravityPlayerEnd: 0.5
   _gravityPlayerCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _gravityCurveAbsolute:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 0
+      inSlope: 0.1
+      outSlope: 0.1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 120
+      value: 1
+      inSlope: 0.05
+      outSlope: 0.05
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

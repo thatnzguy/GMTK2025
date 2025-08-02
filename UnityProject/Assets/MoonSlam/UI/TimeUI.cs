@@ -8,7 +8,7 @@ public class TimeDisplayUI : MonoBehaviour
 
     private void Update()
     {
-        string text = GameManager.Instance.TimeRemainingSeconds.ToString();
+        string text = ((int)GameManager.Instance.TimeRemainingSeconds).ToString();
         _text.text = text;
     }
 }
