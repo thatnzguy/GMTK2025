@@ -18,6 +18,8 @@ public class Interactor : MonoBehaviour
 {
     [SerializeField] private float _maxInteractDistance = 10;
     [SerializeField] private Transform _holdPosition;
+    [SerializeField] private float _throwForce = 1;
+    [SerializeField] private Rigidbody _rigidbody;
 
     private RaycastHit[] _raycastHits = new RaycastHit[100];
 
@@ -79,7 +81,7 @@ public class Interactor : MonoBehaviour
             } 
             else if (HeldItem)
             {
-                DropHeldItem();
+                ThrowHeldItem();
             }
         }
     }
@@ -99,8 +101,15 @@ public class Interactor : MonoBehaviour
 
     private void DropHeldItem()
     {
-        //TODO throw
-        HeldItem.Drop();
+        Vector3 force = _rigidbody.linearVelocity;
+        HeldItem.Drop(force);
+        HeldItem = null;
+    }
+
+    private void ThrowHeldItem()
+    {
+        Vector3 force = _rigidbody.linearVelocity + _holdPosition.forward * _throwForce;
+        HeldItem.Drop(force);
         HeldItem = null;
     }
 }

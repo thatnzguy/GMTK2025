@@ -77,6 +77,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxInteractDistance: 3
   _holdPosition: {fileID: 1027158402435072811}
+  _throwForce: 5
+  _rigidbody: {fileID: 752362573732432267}
 --- !u!1001 &4004952094350586926
 PrefabInstance:
   m_ObjectHideFlags: 0
