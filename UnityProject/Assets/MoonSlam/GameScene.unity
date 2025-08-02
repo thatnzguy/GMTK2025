@@ -2680,6 +2680,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -168.988
       objectReference: {fileID: 0}
+    - target: {fileID: 1666880989591862721, guid: b912e9569d44f2e478bae44aa99022e7, type: 3}
+      propertyPath: _hitSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 018479e324f914863b6c26154213d9ff, type: 3}
+    - target: {fileID: 4591088754576035612, guid: b912e9569d44f2e478bae44aa99022e7, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 018479e324f914863b6c26154213d9ff, type: 3}
     - target: {fileID: 7537948678325061760, guid: b912e9569d44f2e478bae44aa99022e7, type: 3}
       propertyPath: m_Name
       value: Spaceship

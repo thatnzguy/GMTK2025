@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 6924387437508570204}
   _loop: {fileID: 8300000, guid: 5b2c143739bea40cc83fe466ecef189e, type: 3}
-  _end: {fileID: 8300000, guid: 5d495adfc101dc640b93690019be584a, type: 3}
+  _end: {fileID: 8300000, guid: ce7c5ee9ebb9c4ec7bbe2e4fe7bf01dd, type: 3}
 --- !u!82 &6924387437508570204
 AudioSource:
   m_ObjectHideFlags: 0
