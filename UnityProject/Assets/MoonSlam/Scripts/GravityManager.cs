@@ -28,12 +28,14 @@ public class GravityManager : MonoBehaviour
 
     public Vector3 WorldGravity { get; private set; }
     public Vector3 PlayerGravity { get; private set; }
+    public float GravityValue;
 
     private void Update()
     {
         float gravity = _gravityCurveAbsolute.Evaluate(GameManager.Instance.TimeElapsedSeconds);
         Physics.gravity = Vector3.up * gravity;
         PlayerGravity = Vector3.up * gravity;
+        GravityValue = gravity;
         return;
 
         float gravityScale = _gravityCurve.Evaluate(GameManager.Instance.TimeRemainingNormalized);

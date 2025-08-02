@@ -4,6 +4,7 @@
 //
 // "Enable/Disable Headbob, Changed look rotations - should result in reduced camera jitters" || version 1.0.1
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,7 +61,7 @@ public class FirstPersonController : MonoBehaviour
     public float maxVelocityChange = 10f;
 
     // Internal Variables
-    private bool isWalking = false;
+    public bool isWalking { get; private set; } = false;
 
     #region Sprint
 
@@ -97,9 +98,11 @@ public class FirstPersonController : MonoBehaviour
     public bool enableJump = true;
     public KeyCode jumpKey = KeyCode.Space;
     public float jumpPower = 5f;
+    
+    public event Action OnJump;
 
     // Internal Variables
-    private bool isGrounded = false;
+    public bool isGrounded { get; private set; } = false;
 
     #endregion
 
@@ -466,6 +469,7 @@ public class FirstPersonController : MonoBehaviour
         {
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
+            OnJump?.Invoke();
         }
 
         // When crouched and using toggle system, will uncrouch for a jump
