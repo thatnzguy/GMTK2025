@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string _endScreen;
     [SerializeField] private string _gameScene;
 
+    [SerializeField] private float _fadeInTime = 5;
+    [SerializeField] private float _fadeOutTime = 2;
+
     public float TimeElapsedSeconds;
     public float TimeRemainingSeconds;
     public float TimeRemainingNormalized;
@@ -40,13 +43,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        DontDestroyOnLoad(gameObject);
         Instance = this;
     }
 
     private void Start()
     {
         _dayEndScreen.SetActive(false);
-        DontDestroyOnLoad(gameObject);
         _dayDuration = _defaultDayDurationSeconds;
         BeginDay();
     }
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
     private void BeginDay()
     {
         //TODO Add day# screen
+        FadeToBlack.Instance.FadeIn(_fadeInTime);
         _dayEndScreen.SetActive(false);
         _dayEndTime = GameTime + _dayDuration;
         _dayStartTime = GameTime;
@@ -67,6 +71,10 @@ public class GameManager : MonoBehaviour
         _dayEndScreen.SetActive(true);
         
         yield return new WaitForSeconds(_endScreenDuration);
+        
+        FadeToBlack.Instance.FadeOut(_fadeOutTime);
+        
+        yield return new WaitForSeconds(3);
         
         DayNumber++;
 

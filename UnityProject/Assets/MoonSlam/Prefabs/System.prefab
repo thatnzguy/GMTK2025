@@ -49,9 +49,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultDayDurationSeconds: 120
   _dayEndScreen: {fileID: 5334941703176754364}
-  _endScreenDuration: 5
+  _endScreenDuration: 3
   _endScreen: EndScreen
   _gameScene: GameScene
+  _fadeInTime: 5
+  _fadeOutTime: 2
   TimeElapsedSeconds: 0
   TimeRemainingSeconds: 0
   TimeRemainingNormalized: 0
