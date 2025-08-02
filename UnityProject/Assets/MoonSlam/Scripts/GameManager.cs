@@ -105,6 +105,11 @@ public class GameManager : MonoBehaviour
         {
             _TimeOffset += 10;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public bool[] ActivatedShips = new bool[3];
