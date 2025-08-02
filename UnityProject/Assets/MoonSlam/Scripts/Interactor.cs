@@ -44,14 +44,18 @@ public class Interactor : MonoBehaviour
                     focused = true;
                     hitCollider = raycastHit.collider;
 
-                    if (_focusedInteractable != null)
+                    if (interactable != _focusedInteractable)
                     {
-                        _focusedInteractable.FocusOff();
-                        _focusedInteractable = null;
-                    }
 
-                    _focusedInteractable = interactable;
-                    _focusedInteractable.FocusOn();
+                        if (_focusedInteractable != null)
+                        {
+                            _focusedInteractable.FocusOff();
+                            _focusedInteractable = null;
+                        }
+
+                        _focusedInteractable = interactable;
+                        _focusedInteractable.FocusOn();
+                    }
                     break;
                 }
             }
@@ -108,7 +112,7 @@ public class Interactor : MonoBehaviour
 
     private void ThrowHeldItem()
     {
-        Vector3 force = _rigidbody.linearVelocity + _holdPosition.forward * _throwForce;
+        Vector3 force = _rigidbody.linearVelocity + transform.forward * _throwForce;
         HeldItem.Drop(force);
         HeldItem = null;
     }

@@ -10,7 +10,6 @@ public class Spaceship : MonoBehaviour
 
     [SerializeField] private AudioSource _sfxActiveIdle;
     [SerializeField] private AudioSource _sfxActivated;
-    
 
     public UnityEvent OnEngineActivated;
     private AttachPoint[] _attachPoints;
