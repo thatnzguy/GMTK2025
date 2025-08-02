@@ -33,7 +33,8 @@ public class Spaceship : MonoBehaviour
     }
     private void EngineActivated()
     {
-        //TODO leave effect
         OnEngineActivated?.Invoke();
+        //TODO leave effect
+        gameObject.SetActive(false);
     }
 }

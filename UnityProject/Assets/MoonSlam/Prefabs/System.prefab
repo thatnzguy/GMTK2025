@@ -63,6 +63,8 @@ MonoBehaviour:
   OnEndDay:
     m_PersistentCalls:
       m_Calls: []
+  LastSpawnIndex: 0
+  ActivatedShips: 000000
 --- !u!114 &4346710159985541670
 MonoBehaviour:
   m_ObjectHideFlags: 0

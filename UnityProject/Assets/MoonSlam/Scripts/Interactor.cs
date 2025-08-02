@@ -88,7 +88,7 @@ public class Interactor : MonoBehaviour
     {
         if (HeldItem != null)
         {
-            HeldItem.transform.SetLocalPositionAndRotation(_holdPosition.position, _holdPosition.rotation);
+            HeldItem.transform.SetPositionAndRotation(_holdPosition.position, _holdPosition.rotation);
         }
     }
 

@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int DayNumber { get; private set; } = 1;
+    public int LastSpawnIndex;
 
     private void Awake()
     {
@@ -88,8 +89,24 @@ public class GameManager : MonoBehaviour
         TimeRemainingSeconds = (int)(_dayEndTime - Time.time);
     }
 
-    public void EngineActivated()
+    public bool[] ActivatedShips = new bool[3];
+
+    public void EngineActivated(int index)
     {
-        SceneManager.LoadScene(_endScreen);
+        ActivatedShips[index] = true;
+        bool allActivated = true;
+        for (int i = 0; i < ActivatedShips.Length && i < DayNumber; i++)
+        {
+            if (ActivatedShips[i] == false)
+            {
+                allActivated = false;
+                break;
+            }
+        }
+
+        if (allActivated)
+        {
+            SceneManager.LoadScene(_endScreen);
+        }
     }
 }
