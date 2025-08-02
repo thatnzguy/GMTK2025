@@ -31,35 +31,47 @@ public class Interactor : MonoBehaviour
         //Focus
         Ray ray = new Ray(transform.position, transform.forward);
         int numHits = Physics.RaycastNonAlloc(ray, _raycastHits, _maxInteractDistance);
-        Collider hitCollider = null;
+        
         bool focused = false;
-        if (numHits > 0)
+        
+        float closestDistance = float.MaxValue;
+        IInteractable closestInteractable = null;
+        Collider closestHitT = null;
+        
+        for (var i = 0; i < numHits; i++)
         {
-            for (var i = 0; i < numHits; i++)
+            RaycastHit raycastHit = _raycastHits[i];
+            IInteractable interactable = raycastHit.collider.GetComponentInParent<IInteractable>();
+            if (interactable != null && interactable.CanFocus(this))
             {
-                RaycastHit raycastHit = _raycastHits[i];
-                IInteractable interactable = raycastHit.collider.GetComponentInParent<IInteractable>();
-                if (interactable != null && interactable.CanFocus(this))
+                if (raycastHit.distance < closestDistance)
                 {
-                    focused = true;
-                    hitCollider = raycastHit.collider;
-
-                    if (interactable != _focusedInteractable)
-                    {
-
-                        if (_focusedInteractable != null)
-                        {
-                            _focusedInteractable.FocusOff();
-                            _focusedInteractable = null;
-                        }
-
-                        _focusedInteractable = interactable;
-                        _focusedInteractable.FocusOn();
-                    }
-                    break;
+                    closestDistance = raycastHit.distance;
+                    closestInteractable = interactable;
+                    closestHitT = raycastHit.collider;
                 }
+                
+                focused = true;
             }
         }
+
+        if (focused)
+        {
+            if (closestInteractable != _focusedInteractable)
+            {
+                if (_focusedInteractable != null)
+                {
+                    _focusedInteractable.FocusOff();
+                    _focusedInteractable = null;
+                }
+                Debug.Log("Focus on " + closestHitT.name);
+
+                _focusedInteractable = closestInteractable;
+                _focusedInteractable.FocusOn();
+            }
+        }
+        
+        
 
         if (!focused && _focusedInteractable != null)
         {
@@ -72,7 +84,7 @@ public class Interactor : MonoBehaviour
             if (_focusedInteractable != null)
             {
                 //TODO could be refactored to be like the AttachPoint, and do a thing for you
-                Pickupable pickupable = hitCollider.GetComponentInParent<Pickupable>();
+                Pickupable pickupable = closestHitT.GetComponentInParent<Pickupable>();
                 if (pickupable != null)
                 {
                     if (HeldItem != null)
