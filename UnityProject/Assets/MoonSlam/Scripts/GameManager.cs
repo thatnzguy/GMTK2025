@@ -17,6 +17,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _fadeInTime = 5;
     [SerializeField] private float _fadeOutTime = 2;
 
+    [SerializeField] private AudioSource _VOSource;
+    [SerializeField] private AudioClip _Intro;
+    [SerializeField] private AudioClip _Intro2;
+    [SerializeField] private AudioClip _failure1;
+    [SerializeField] private AudioClip _failure2;
+    [SerializeField] private AudioClip _failure3;
+    [SerializeField] private AudioClip _midwayTip;
+    [SerializeField] private float _midwayTipTime = 60f;
+    [SerializeField] private AudioClip _success;
+
     public float TimeElapsedSeconds;
     public float TimeRemainingSeconds;
     public float TimeRemainingNormalized;
@@ -56,7 +66,19 @@ public class GameManager : MonoBehaviour
 
     private void BeginDay()
     {
-        //TODO Add day# screen
+
+        switch (DayNumber)
+        {
+            case 1:
+                _VOSource.clip = _Intro;
+                _VOSource.PlayDelayed(3);
+                break;
+            case 2:
+                _VOSource.clip = _Intro2;
+                _VOSource.PlayDelayed(10);
+                break;
+        }
+        
         FadeToBlack.Instance.FadeIn(_fadeInTime);
         _dayEndScreen.SetActive(false);
         _dayEndTime = GameTime + _dayDuration;
@@ -69,6 +91,19 @@ public class GameManager : MonoBehaviour
         //TODO disable player input
         OnEndDay?.Invoke();
         _dayEndScreen.SetActive(true);
+
+        switch (DayNumber)
+        {
+            case 1:
+                _VOSource.PlayOneShot(_failure1);
+                break;
+            case 2:
+                _VOSource.PlayOneShot(_failure2);
+                break;
+            case 3:
+                _VOSource.PlayOneShot(_failure3);
+                break;
+        }
         
         yield return new WaitForSeconds(_endScreenDuration);
         
@@ -96,6 +131,12 @@ public class GameManager : MonoBehaviour
             StartCoroutine(nameof(EndDay));
             return;
         }
+
+        if (DayNumber == 1 && !_midwayTipPlayed && GameTime > _midwayTipTime)
+        {
+            _midwayTipPlayed = true;
+            _VOSource.PlayOneShot(_midwayTip);
+        }
         
         TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, GameTime);
         TimeRemainingSeconds = _dayEndTime - GameTime;
@@ -113,6 +154,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool[] ActivatedShips = new bool[3];
+    private bool _midwayTipPlayed;
 
     public void EngineActivated(int index)
     {
@@ -129,6 +171,7 @@ public class GameManager : MonoBehaviour
 
         if (allActivated)
         {
+            _VOSource.PlayOneShot(_success);
             SceneManager.LoadScene(_endScreen);
         }
     }
