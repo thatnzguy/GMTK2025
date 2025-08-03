@@ -11,6 +11,8 @@ public class Spaceship : MonoBehaviour
     [SerializeField] private AudioSource _sfxActiveIdle;
     [SerializeField] private AudioSource _sfxActivated;
 
+    [SerializeField] private ParticleSystem _poof;
+
     public UnityEvent OnEngineActivated;
     private AttachPoint[] _attachPoints;
 
@@ -39,7 +41,8 @@ public class Spaceship : MonoBehaviour
     private void EngineActivated()
     {
         OnEngineActivated?.Invoke();
-        //TODO leave effect
+        _poof.transform.SetParent(null);
+        _poof.Play();
         gameObject.SetActive(false);
     }
 }
