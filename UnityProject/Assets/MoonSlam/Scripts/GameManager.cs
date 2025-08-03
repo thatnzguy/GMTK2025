@@ -13,8 +13,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _endScreenDuration = 5;
     [SerializeField] private string _endScreen;
     [SerializeField] private string _gameScene;
-    
-    public int TimeRemainingSeconds;
+
+    [SerializeField] private float _fadeInTime = 5;
+    [SerializeField] private float _fadeOutTime = 2;
+
+    public float TimeElapsedSeconds;
+    public float TimeRemainingSeconds;
     public float TimeRemainingNormalized;
     
     public float _dayEndTime;
@@ -27,6 +31,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int DayNumber { get; private set; } = 1;
+    public int LastSpawnIndex;
+
+    public float _TimeOffset = 0;
+    public float GameTime => Time.time + _TimeOffset;
 
     private void Awake()
     {
@@ -35,13 +43,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        DontDestroyOnLoad(gameObject);
         Instance = this;
     }
 
     private void Start()
     {
         _dayEndScreen.SetActive(false);
-        DontDestroyOnLoad(gameObject);
         _dayDuration = _defaultDayDurationSeconds;
         BeginDay();
     }
@@ -49,9 +57,10 @@ public class GameManager : MonoBehaviour
     private void BeginDay()
     {
         //TODO Add day# screen
+        FadeToBlack.Instance.FadeIn(_fadeInTime);
         _dayEndScreen.SetActive(false);
-        _dayEndTime = Time.time + _dayDuration;
-        _dayStartTime = Time.time;
+        _dayEndTime = GameTime + _dayDuration;
+        _dayStartTime = GameTime;
         OnBeginDay?.Invoke();
     }
 
@@ -62,6 +71,10 @@ public class GameManager : MonoBehaviour
         _dayEndScreen.SetActive(true);
         
         yield return new WaitForSeconds(_endScreenDuration);
+        
+        FadeToBlack.Instance.FadeOut(_fadeOutTime);
+        
+        yield return new WaitForSeconds(3);
         
         DayNumber++;
 
@@ -77,19 +90,46 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_dayEnded && Time.time > _dayEndTime)
+        if (!_dayEnded && GameTime > _dayEndTime)
         {
             _dayEnded = true;
             StartCoroutine(nameof(EndDay));
             return;
         }
         
-        TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, Time.time);
-        TimeRemainingSeconds = (int)(_dayEndTime - Time.time);
+        TimeRemainingNormalized = Mathf.InverseLerp(_dayStartTime, _dayEndTime, GameTime);
+        TimeRemainingSeconds = _dayEndTime - GameTime;
+        TimeElapsedSeconds = GameTime - _dayStartTime;
+
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            _TimeOffset += 10;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
-    public void EngineActivated()
+    public bool[] ActivatedShips = new bool[3];
+
+    public void EngineActivated(int index)
     {
-        SceneManager.LoadScene(_endScreen);
+        ActivatedShips[index] = true;
+        bool allActivated = true;
+        for (int i = 0; i < ActivatedShips.Length && i < DayNumber; i++)
+        {
+            if (ActivatedShips[i] == false)
+            {
+                allActivated = false;
+                break;
+            }
+        }
+
+        if (allActivated)
+        {
+            SceneManager.LoadScene(_endScreen);
+        }
     }
 }

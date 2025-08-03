@@ -8,6 +8,11 @@ public class Spaceship : MonoBehaviour
     [SerializeField] private Transform _playerSpawn;
     [SerializeField] private EngineButton _engineButton;
 
+    [SerializeField] private AudioSource _sfxActiveIdle;
+    [SerializeField] private AudioSource _sfxActivated;
+
+    [SerializeField] private ParticleSystem _poof;
+
     public UnityEvent OnEngineActivated;
     private AttachPoint[] _attachPoints;
 
@@ -28,12 +33,16 @@ public class Spaceship : MonoBehaviour
         int numAttached = _attachPoints.Count(attachPoint => attachPoint.IsAttached);
         if (numAttached == _attachPoints.Length)
         {
+            _sfxActiveIdle.Play();
+            _sfxActivated.Play();
             _engineButton.EnableActivate();
         }
     }
     private void EngineActivated()
     {
-        //TODO leave effect
         OnEngineActivated?.Invoke();
+        _poof.transform.SetParent(null);
+        _poof.Play();
+        gameObject.SetActive(false);
     }
 }

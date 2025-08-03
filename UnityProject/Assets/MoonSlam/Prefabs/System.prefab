@@ -49,9 +49,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultDayDurationSeconds: 120
   _dayEndScreen: {fileID: 5334941703176754364}
-  _endScreenDuration: 5
+  _endScreenDuration: 3
   _endScreen: EndScreen
   _gameScene: GameScene
+  _fadeInTime: 5
+  _fadeOutTime: 2
+  TimeElapsedSeconds: 0
   TimeRemainingSeconds: 0
   TimeRemainingNormalized: 0
   _dayEndTime: 0
@@ -63,6 +66,9 @@ MonoBehaviour:
   OnEndDay:
     m_PersistentCalls:
       m_Calls: []
+  LastSpawnIndex: 0
+  _TimeOffset: 0
+  ActivatedShips: 000000
 --- !u!114 &4346710159985541670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,25 +82,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityStart: -15
-  _gravityEnd: 5
+  _gravityEnd: 0.5
   _gravityCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -102,28 +108,79 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _gravityPlayerStart: -15
-  _gravityPlayerEnd: -1
+  _gravityPlayerEnd: 0.5
   _gravityPlayerCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _gravityCurveAbsolute:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 65.01695
+      value: -2.9926457
+      inSlope: 0.10772823
+      outSlope: 0.10772823
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 109.969345
+      value: -0.030944824
+      inSlope: 0.23100375
+      outSlope: 0.006931481
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.05299949
+      outWeight: 0.494763
+    - serializedVersion: 3
+      time: 115.02432
+      value: 1.7705225
+      inSlope: 0.2905885
+      outSlope: 0.2905885
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2839812
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 119.96754
+      value: 15
+      inSlope: 2.6762905
+      outSlope: 0.05
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -174,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 6924387437508570204}
   _loop: {fileID: 8300000, guid: 5b2c143739bea40cc83fe466ecef189e, type: 3}
-  _end: {fileID: 8300000, guid: 5d495adfc101dc640b93690019be584a, type: 3}
+  _end: {fileID: 8300000, guid: ce7c5ee9ebb9c4ec7bbe2e4fe7bf01dd, type: 3}
 --- !u!82 &6924387437508570204
 AudioSource:
   m_ObjectHideFlags: 0

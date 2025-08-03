@@ -38,7 +38,7 @@ public class Music : MonoBehaviour
 
     private void Update()
     {
-        if (!_endClipPlaying && Time.time > _startEndClipTime)
+        if (!_endClipPlaying && GameManager.Instance.GameTime > _startEndClipTime)
         {
             _endClipPlaying = true;
             _audioSource.clip = _end;

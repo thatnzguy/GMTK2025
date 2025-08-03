@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[SelectionBase]
 public class Attachable : Pickupable
 {
     private bool _attached;
@@ -10,8 +11,9 @@ public class Attachable : Pickupable
         {
             _holdingInteractor?.ReleaseHeldItem();
         }
-        
-        _rigidbody.isKinematic = true;
+        Destroy(_rigidbody); // Game jam hack, we're not detaching anything
+        // _rigidbody.isKinematic = true;
+        transform.SetParent(attachPoint.transform);
         transform.position = attachPoint.transform.position;
         transform.rotation = attachPoint.transform.rotation;
         

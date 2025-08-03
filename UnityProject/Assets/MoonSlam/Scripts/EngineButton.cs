@@ -7,6 +7,7 @@ public class EngineButton : Interactable
 {
     [SerializeField] private Color _readyColor = Color.green;
     [SerializeField] private Color _notReadyColor = Color.red;
+    [SerializeField] private AudioSource _sfxIncorrect;
     
     private bool _ready;
 
@@ -26,6 +27,10 @@ public class EngineButton : Interactable
         if (_ready)
         {
             base.Interact(interactor);
+        }
+        else
+        {
+            _sfxIncorrect.Play();
         }
     }
 }

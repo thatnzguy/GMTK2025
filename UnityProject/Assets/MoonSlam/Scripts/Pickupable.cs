@@ -22,7 +22,7 @@ public class Pickupable : Interactable
         base.Interact(interactor);
     }
 
-    public void Drop()
+    public void Drop(Vector3 force)
     {
         _isHeld = false;
         Collider[] colliders = GetComponentsInChildren<Collider>();
@@ -32,5 +32,6 @@ public class Pickupable : Interactable
         }
         
         _rigidbody.isKinematic = false;
+        _rigidbody.AddForce(force, ForceMode.Impulse);
     }
 }
